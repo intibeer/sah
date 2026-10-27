@@ -35,3 +35,9 @@ Verify webhook signatures before processing; deduplicate, tolerate reordering an
 Cross-store read/write/approval/job/export; forged/expired identity; read-only staff attempting approval; revoked permission between approval and execution; concurrent refresh; missing scope with later recovery; changed task revision; altered proposal; hidden bypass route; prompt injection; duplicate job/webhook; worker crash around a mutation; stale read-back; provider timeout/unknown charge; failed deletion; restore accidentally restarting external effects.
 
 These tests gate V1. A mock-only pass is not evidence that Shopify OAuth, actual permissions or production tenant isolation works.
+
+## Cloudflare and provider decisions
+
+The founder selected Workers/D1/Workflows hosting and multiple provider adapters. Use encrypted credential records and Worker secret bindings; never include tokens or raw keys in durable step arguments/results. The core remains free of Cloudflare bindings so the Node/SQLite self-hosted adapter enforces the same rules. D1 transaction/consistency semantics need real adapter tests; a prior Postgres design is not proof.
+
+Required providers are Gemini, OpenAI, Anthropic and DeepSeek; Mistral/xAI/Groq are additional targets. Validate capabilities per model profile. Do not silently fail over across providers or retry an uncertain paid request through another layer. Data destination and monetary reservations are part of policy; adding an SDK does not authorize live inference. See [providers](providers.md) and [decisions](decisions.md).

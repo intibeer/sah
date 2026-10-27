@@ -4,7 +4,7 @@ Technical plan — 2026-10-27. Read the original handoff in `sah-codex-handoff/`
 
 ## Scope and decisions
 
-Implement a bounded deterministic catalog audit in TypeScript, with no runtime dependencies, network calls, credentials, database or model provider. Use npm workspaces for core contracts, the catalog agent, a mock adapter and CLI. TypeScript and Node typings are development dependencies; Node's test runner verifies critical behavior. No license is selected and all packages are private.
+Implement a bounded deterministic catalog audit in TypeScript, with no runtime dependencies, network calls, credentials, database or model provider. Use npm workspaces for core contracts, the catalog agent, a mock adapter and CLI. TypeScript and Node typings are development dependencies; Node's test runner verifies critical behavior. Apache-2.0 is selected; all packages remain private to prevent accidental npm publication.
 
 The first useful outcome is an evidenced review queue: missing title/vendor/type/description, missing and duplicate SKUs, and safe title/vendor/type whitespace proposals. Never invent missing product facts, change SKU identities or publish products. These are data-quality heuristics, not verified revenue or ranking predictors. This is the deterministic foundation of an AI harness, not an LLM-powered demo.
 
@@ -31,11 +31,11 @@ Token budget support is a reservation ledger only; no tokenizer or provider exis
 
 ## Future hosted boundary
 
-Keep the same policy layer; replace file persistence with tenant-keyed Postgres transactions, authenticated staff approvals and an outbox/job worker. Use the Shopify React Router template for auth; request read_products first. Introduce a narrow versioned Shopify adapter only after permission. Workers use expiring offline tokens, per-shop throttling and bounded retries. Writes require current approval, write scope and revalidation; Shopify does not provide a general cross-resource transaction, so reconcile uncertain outcomes before retries. SDK extraction should follow an actual second consumer.
+Keep the same policy layer; replace file persistence with tenant-keyed storage, authenticated staff approvals and durable execution. The founder selected Cloudflare: target D1 plus Workflows behind storage/runner ports, with a portable SQLite/Node runner for self-hosting. This supersedes the earlier Postgres/continuous-worker suggestion. Validate Shopify library and D1 session storage in the Workers runtime before committing to the adapter implementation. Use the Shopify React Router template for auth; request read_products first. Introduce a narrow versioned Shopify adapter only after permission. Workers use expiring offline tokens, per-shop throttling and bounded retries. Writes require current approval, write scope and revalidation; Shopify does not provide a general cross-resource transaction, so reconcile uncertain outcomes before retries. SDK extraction should follow an actual second consumer.
 
 ## Unknowns before implementation
 
-Merchant willingness to pay, useful category-specific rules, acceptable false-positive rate, license, actual Sidekick/competitor overlap and Shopify authentication integration are unvalidated. No implementation dependency is needed to resolve those questions. Local atomic files are sufficient for the mock but cannot validate production tenancy, provider cost, OAuth, webhook correctness or Shopify write races.
+Merchant willingness to pay, useful category-specific rules, acceptable false-positive rate, actual Sidekick/competitor overlap and Shopify authentication integration are unvalidated. No implementation dependency is needed to resolve those questions. Local atomic files are sufficient for the mock but cannot validate production tenancy, provider cost, OAuth, webhook correctness or Shopify write races.
 
 ## Acceptance checks
 

@@ -71,6 +71,8 @@ Stale approved fields block the entire pending batch before writes. A rescan cre
 
 No hosted tenant authentication, OAuth, webhooks, billing, rollback, scheduling or production security claim. Demand and differentiation remain unvalidated, especially against Sidekick and catalog QA competitors.
 
-## License status
+## License
 
-License decision pending founder review. Packages are private and marked `UNLICENSED`; this prototype is **not yet licensed for open-source distribution**. Apache-2.0, AGPLv3 and open-core tradeoffs are recorded in research. No restrictive license has been chosen.
+SAH is licensed under [Apache-2.0](LICENSE), selected by the founder on 2026-10-27. Private package flags prevent accidental npm publication; they do not restrict this source license. Third-party dependencies retain their own licenses.
+
+V1 decisions are recorded in [decisions](docs/decisions.md): self-hostable harness plus pilot, Cloudflare hosting, and multi-provider model support. These selections do not mean cloud services or provider adapters are implemented.
