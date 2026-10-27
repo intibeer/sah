@@ -13,7 +13,7 @@ The initial agent combines deterministic checks with optional model-assisted pro
 
 ## Current baseline versus work remaining
 
-Implemented: offline mock catalog, evidenced trim-only proposals, revision-bound approvals, write/stale checks, intent/outcome checkpoints, read-back verification, status/resume/cancel/revise commands, mock failure controls and conservative legacy migration. Twenty-four tests cover policy/lifecycle and separate-process CLI behavior. The isolated [Workers probe](workers-compatibility.md) passes initial synthetic library/session/provider checks.
+Implemented: offline mock catalog, evidenced trim-only proposals, revision-bound approvals, write/stale checks, intent/outcome checkpoints, read-back verification, status/resume/cancel/revise commands, mock failure controls and conservative legacy migration. Twenty-seven tests cover policy/lifecycle and separate-process CLI behavior. The isolated [Workers probe](workers-compatibility.md) passes initial synthetic library/session/provider checks.
 
 Not implemented: real Shopify access, authenticated users, production D1/SQLite repositories, durable Workflow/Node runners, hosted tenant authorization/connection diagnostics, merchant UI, usable model adapters, hosting or release artifacts. The probe's session fixture is not production storage. Do not present this as deployed V1.
 

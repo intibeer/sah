@@ -15,4 +15,4 @@ Deferred: generic agent marketplace, multiple commerce platforms, autonomous pub
 
 Founder decisions on scope, Cloudflare, Apache-2.0 and provider coverage supersede earlier undecided suggestions; see [decision record](decisions.md) and [provider plan](providers.md).
 
-Current progress: M1 offline lifecycle is implemented with 24 tests: verification, resume, cancellation, revisions and legacy migration. An initial [local Workers compatibility probe](workers-compatibility.md) passes with network-denied synthetic Shopify/provider requests. Production storage/runners and live connections remain unimplemented.
+Current progress: M1 offline lifecycle is implemented with 27 tests: verification, resume, cancellation, revisions and legacy migration. An initial [local Workers compatibility probe](workers-compatibility.md) passes with network-denied synthetic Shopify/provider requests. Production storage/runners and live connections remain unimplemented.

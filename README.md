@@ -60,6 +60,25 @@ Existing version-1 state migrates to version 2 on the next stateful command. Cat
 
 ## Inspect and verify
 
+In a terminal, SAH uses a warm colour palette, a compact header, status badges and before/after diffs. Review is the “review desk”; status is “mission control”; history is the “paper trail.” There are no simulated thinking delays or cosmetic progress bars.
+
+```sh
+npm run demo -- review --pretty
+npm run demo -- status --pretty
+npm run demo -- history --pretty --limit 8
+```
+
+Run and proposal IDs accept unique prefixes of **at least 8 characters**; review shows a safe short proposal ID. Full IDs still work and an ambiguous prefix is rejected. Approvals remain bound to the exact full proposal and revision.
+
+Human output is automatic on a TTY. Use `--pretty` to request it when output is captured, `--plain` for human text without ANSI, `--ascii` for simple decorations, or `--color auto|always|never`. `NO_COLOR` and `TERM=dumb` disable colour. Untrusted text is escaped to prevent terminal control-sequence injection; long lines wrap to the terminal width.
+
+Piped commands retain the original machine output. `--json` explicitly requests structured output, overriding colour; do not combine it with human-view flags. Trace always remains JSONL. For a clean JSON stream, call the built entrypoint directly (npm itself prints script banners):
+
+```sh
+node dist/apps/cli/src/index.js review --json
+node dist/apps/cli/src/index.js history --json --limit 8
+```
+
 - `.sah/state.json`: authoritative mock catalog, runs, exact-payload decisions, applied IDs and event history.
 - `.sah/trace.jsonl`: readable JSONL export, regenerated on each successful state commit, including failed policy attempts.
 - `npm test`: builds and runs policy tests plus a CLI end-to-end test using separate processes and a temporary directory.
