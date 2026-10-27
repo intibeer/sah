@@ -40,3 +40,7 @@ Merchant willingness to pay, useful category-specific rules, acceptable false-po
 ## Acceptance checks
 
 Read-only scan preserves catalog; findings cite observed values; no unapproved/forged/stale/cross-tenant mutation; caps fail before writes; repeat apply does not duplicate changes; decisions and before/after survive CLI restarts; logs include denials; CLI runs offline after dependency installation. Tests must exercise these policy boundaries and a separate-process CLI flow.
+
+## M1 lifecycle update
+
+Implemented task/revision state, intent/outcome checkpoints and independent read-back verification. Applied is not completed. Resume reconciles attempts before executing unattempted approved work; uncertain effects without a matching postcondition block replay. Cancel/supersede guard the shared apply path. Revise rescans as the next task revision and invalidates old approvals. Missing-data findings remain unresolved even after all trim corrections verify. Local hard-crash lock recovery remains manual. See README and m1-implementation.md.

@@ -1,6 +1,6 @@
 import { boundedInteger, digest, LIMITS, TokenBudget, validateCatalog, type CatalogTool, type Field, type Finding, type Log, type Proposal, type Run } from '../../core/src/index.js';
 
-export function audit(store: CatalogTool, storeId: string, runId: string, limit: number, log: Log): Run {
+export function audit(store: CatalogTool, storeId: string, runId: string, limit: number, log: Log, revision = 1, taskId = runId): Run {
   log('audit.started', { runId, storeId, limit, mode: 'deterministic', modelTokens: 0 });
   boundedInteger(limit, LIMITS.products, 'product limit');
   new TokenBudget(0).reserve(0);
@@ -16,7 +16,7 @@ export function audit(store: CatalogTool, storeId: string, runId: string, limit:
       else if (field !== 'description' && value !== value.trim()) {
         const evidence: Finding = { rule: 'outer-whitespace', productId: p.id, path: field, observed: value, explanation: 'Remove leading/trailing whitespace; preserve internal content.' };
         findings.push(evidence);
-        const payload = { storeId, runId, productId: p.id, field: field as Field, before: value, after: value.trim(), evidence };
+        const payload = { storeId, runId, revision, productId: p.id, field: field as Field, before: value, after: value.trim(), evidence };
         proposals.push({ ...payload, id: digest(payload) });
       }
     }
@@ -32,5 +32,5 @@ export function audit(store: CatalogTool, storeId: string, runId: string, limit:
   for (const finding of findings) log('finding.recorded', { runId, ...finding });
   for (const proposal of proposals) log('proposal.created', { runId, proposalId: proposal.id, productId: proposal.productId, field: proposal.field, before: proposal.before, after: proposal.after });
   log('audit.completed', { runId, scanned: products.length, findings: findings.length, proposals: proposals.length, modelTokens: 0 });
-  return { id: runId, storeId, scanned: products.length, findings, proposals, decisions: {}, applied: [] };
+  return { id: runId, taskId, revision, status: proposals.length ? 'awaiting_approval' : findings.length ? 'partially_completed' : 'completed', blocker: null, limit, attempts: [], storeId, scanned: products.length, findings, proposals, decisions: {}, applied: [] };
 }

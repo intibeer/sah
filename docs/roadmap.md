@@ -14,3 +14,5 @@ The actionable proposed route from this mock to release 0.1.0 is in [V1 plan](v1
 Deferred: generic agent marketplace, multiple commerce platforms, autonomous publishing, unrestricted GraphQL, multi-agent orchestration, vector storage and enterprise infrastructure. Revisit SDK extraction only with a real second integration.
 
 Founder decisions on scope, Cloudflare, Apache-2.0 and provider coverage supersede earlier undecided suggestions; see [decision record](decisions.md) and [provider plan](providers.md).
+
+Current progress: M1 offline lifecycle is implemented with 24 tests: verification, resume, cancellation, revisions and legacy migration. An initial [local Workers compatibility probe](workers-compatibility.md) passes with network-denied synthetic Shopify/provider requests. Production storage/runners and live connections remain unimplemented.

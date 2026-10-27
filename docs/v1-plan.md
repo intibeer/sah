@@ -13,9 +13,9 @@ The initial agent combines deterministic checks with optional model-assisted pro
 
 ## Current baseline versus work remaining
 
-Implemented: TypeScript workspace modules, offline mock catalog, deterministic findings, trim-only proposals, local approve/reject/apply commands, content-bound approvals, write limits, stale checks, local checkpoints and JSONL trace. Eleven tests cover policy and separate-process CLI behavior.
+Implemented: offline mock catalog, evidenced trim-only proposals, revision-bound approvals, write/stale checks, intent/outcome checkpoints, read-back verification, status/resume/cancel/revise commands, mock failure controls and conservative legacy migration. Twenty-four tests cover policy/lifecycle and separate-process CLI behavior. The isolated [Workers probe](workers-compatibility.md) passes initial synthetic library/session/provider checks.
 
-Not implemented: real Shopify access, authenticated users, D1/SQLite adapters, durable workflow execution, tenant authorization, connection diagnostics, read-back verification, merchant UI, model integration, hosting or release artifacts. Do not present the existing CLI as deployed V1. The current 100-product in-memory adapter cannot simply become the production snapshot store.
+Not implemented: real Shopify access, authenticated users, production D1/SQLite repositories, durable Workflow/Node runners, hosted tenant authorization/connection diagnostics, merchant UI, usable model adapters, hosting or release artifacts. The probe's session fixture is not production storage. Do not present this as deployed V1.
 
 ## Product scope
 
@@ -48,6 +48,8 @@ Retries operate on durable attempt IDs and leases. On a timeout after a mutation
 Save the existing prototype, source research and this plan to intibeer/sah. Exclude local state, secrets, build output and dependencies. Existing checks pass. Document actual implementation status and pending decisions. Apache-2.0 is now approved and added. Do not tag 0.1.0 until release gates pass.
 
 ### M1 — Verified, resumable offline harness
+
+Implemented with local tests and CI coverage. See [M1 scope](m1-implementation.md) and README recovery commands. Hard-crash lock recovery remains fail-closed/manual; production durable execution remains M2.
 
 Add task/proposal state transitions, verifier contracts, cancellation and revision-aware approvals. Separate immutable evidence from mutable status. Persist attempts and show the next action after restarting. Add simulated expired authorization and unknown write outcomes.
 

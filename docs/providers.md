@@ -1,6 +1,6 @@
 # Provider and model support plan
 
-Status: V1 implementation scope, **not implemented provider support**. No provider packages are installed, credentials read or model APIs called. Founder requested multiple providers on 2026-10-27. Sources accessed the same day.
+Status: V1 implementation scope, **not implemented product provider support**. SDKs are installed only in the isolated tools/workers-probe dev package. Synthetic non-streaming request/response/usage smoke checks pass for all seven in local Workers emulation, narrower than the conformance suite below. No real credentials are read or model APIs called. See [probe evidence](workers-compatibility.md). Founder requested multiple providers on 2026-10-27. Sources accessed the same day.
 
 ## Initial coverage
 
